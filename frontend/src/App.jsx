@@ -16,6 +16,7 @@ import InterviewPage from './pages/InterviewPage'
 import InterviewReport from './pages/InterviewReport'
 import Roadmap from './pages/Roadmap'
 import Billing from './pages/Billing'
+import DemoBlockedModal from './components/DemoBlockedModal'
 
 function App() {
   const [user,setUser]= useState(null)
@@ -57,6 +58,8 @@ function App() {
 
   return (
    <>
+
+   <DemoBlockedModal />
 
    <Routes>
     <Route path='/' element={

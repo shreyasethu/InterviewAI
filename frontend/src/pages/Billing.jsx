@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { FiMenu, FiX } from 'react-icons/fi'
 import { GiTwoCoins } from 'react-icons/gi'
 import PricingCard from '../components/PricingCard'
-import api from '../utils/axios'
 import { useNavigate } from 'react-router-dom'
+import { showDemoBlocked } from '../utils/demoBlock'
 
 const plan = [
     {
@@ -41,59 +41,9 @@ function Billing({ user, setUser }) {
     const [showMenu, setShowMenu] = useState(false)
 
     const navigate = useNavigate()
-    const handlePayment = async (plan) => {
+    const handlePayment = (plan) => {
         if (plan.disabled) return;
-        try {
-            const result = await api.post("/api/billing/create",
-                { planId: plan.title.toLowerCase() })
-
-            const options = {
-                key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-                amount: result.data.order.amount,
-                currency: result.data.order.currency,
-                name: "FresherAI",
-                description: `${plan.title} - ${plan.coins} Interview Coins`,
-                order_id: result.data.order.id,
-
-                handler: async function (response) {
-                    try {
-                        await api.post("/api/billing/verify", response)
-
-                        const coinRes = await api.post("/api/auth/add-coins", { coins: plan.coins })
-
-                        setUser((prev) => ({
-                            ...prev, interviewCoin: coinRes.data.interviewCoin
-                        }))
-
-                        alert("Payment Successful 🎉")
-                        navigate("/dashboard")
-
-                    } catch (error) {
-                        console.log(error);
-
-                        alert(
-                            error?.response?.data?.message ||
-                            "Payment verification failed"
-                        );
-                    }
-
-                },
-
-
-                theme: {
-                    color: "#000000",
-                },
-
-            }
-
-
-            const razorpay = new window.Razorpay(options);
-            razorpay.open()
-
-
-        } catch (error) {
-            console.log(error)
-        }
+        showDemoBlocked()
     }
     return (
         <div className='min-h-screen bg-white text-[#0A0A0A]'>

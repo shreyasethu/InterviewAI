@@ -2,12 +2,16 @@ import React from 'react'
 import { motion } from "motion/react"
 import { GiArtificialHive } from "react-icons/gi";
 import { FaArrowRight } from "react-icons/fa6";
-import LoginModel from '../components/LoginModel';
-import { useState } from 'react';
 import dashboard from "../assets/image.png"
 import { FiMic, FiFileText, FiBarChart2, FiMap } from "react-icons/fi";
 function Home({ setUser }) {
-    const [showLogin, setShowLogin] = useState(false)
+    const handleDemoLogin = () => {
+        setUser({
+            name: "Person",
+            email: "demo@fresherai.app",
+            interviewCoin: 150,
+        })
+    }
     return (
         <div className='bg-white text-[#0A0A0A] font-sans min-h-screen overflow-x-hidden'>
 
@@ -28,7 +32,7 @@ function Home({ setUser }) {
                 </div>
 
                 <motion.button
-                    onClick={() => setShowLogin(true)}
+                    onClick={handleDemoLogin}
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
                     className='bg-[#0A0A0A]/80 backdrop-blur-2xl text-white font-semibold border border-white/10 rounded-md px-3 py-1.5 text-xs cursor-pointer transition-all hover:border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.25)] flex items-center gap-2'>
@@ -48,7 +52,7 @@ function Home({ setUser }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.05 }}
                         className='inline-flex items-center px-3 py-1.5 rounded-full border border-black/15 bg-black/5 text-black/70 text-xs font-medium mb-4'>
-                        Multi-Agent Interview Platform
+                        AI Interview Helper Demo Site
 
                     </motion.div>
 
@@ -79,7 +83,7 @@ function Home({ setUser }) {
                         transition={{ duration: 0.55, delay: 0.28 }}>
 
                         <motion.button
-                            onClick={() => setShowLogin(true)}
+                            onClick={handleDemoLogin}
                             whileHover={{ scale: 1.05, boxShadow: "0 0 36px rgba(0,0,0,0.18)" }}
                             whileTap={{ scale: 0.97 }}
                             className='relative  gap-2 overflow-hidden bg-[#0A0A0A]/80 backdrop-blur-2xl text-white font-bold px-5 py-2.5 rounded-lg text-xs cursor-pointer border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all hover:border-white/20'>
@@ -174,8 +178,6 @@ function Home({ setUser }) {
                     </div>
                 </div>
             </section>
-
-            {showLogin && <LoginModel onClose={() => setShowLogin(false)} setUser={setUser} />}
 
                 <footer className='border-t border-black/7 py-6 text-center bg-white'>
                 <div className='flex items-center justify-center gap-2 mb-1.5'>

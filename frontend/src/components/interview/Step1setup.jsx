@@ -3,14 +3,10 @@ import { motion } from "motion/react"
 import { FiArrowLeft, FiArrowRight, FiBriefcase, FiCheck, FiCheckCircle, FiFileText, FiUploadCloud } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useCoins } from '../../apis/user.api'
-import api from '../../utils/axios'
-import { setResume } from '../../redux/resumeSlice'
-import { startInterview } from '../../apis/interview.api'
+import { useSelector } from 'react-redux'
+import { showDemoBlocked } from '../../utils/demoBlock'
 function Step1setup({ user, setUser }) {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     const { resume } = useSelector((state) => state.resume)
     const [role, setRole] = useState("");
     const [type, setType] = useState("technical");
@@ -19,65 +15,12 @@ function Step1setup({ user, setUser }) {
     const [uploading, setUploading] = useState(false)
     const [starting, setStarting] = useState(false)
 
-    const uploadResume = async () => {
-        if (!file) {
-            alert("Please select a PDF")
-        }
-        try {
-            setUploading(true)
-            try {
-                
-            const coinResponse = await useCoins({ coins: 10, action: "resume-scorer" })
-
-            setUser((prev) => ({
-                ...prev, interviewCoin: coinResponse?.interviewCoin,
-            }))
-            } catch (error) {
-                setUploading(false)
-                alert("Failed to use coins.")
-                return;
-            }
-
-
-            const formData = new FormData()
-            formData.append("resume", file)
-
-            const response = await api.post("/api/resume/upload", formData)
-
-            dispatch(setResume(response?.data?.data))
-            setUploading(false)
-            setFile(null)
-        } catch (error) {
-            console.log(error)
-            alert("Upload failed")
-            setUploading(false)
-        }
+    const uploadResume = () => {
+        showDemoBlocked()
     }
 
-    const start = async () => {
-        setStarting(true)
-        const response = await startInterview({ role, type, useResume, resume })
-
-        if(response){
-            try {
-                
-            const coinResponse = await useCoins({ coins: 50, action: "start-interview" })
-
-            setUser((prev) => ({
-                ...prev, interviewCoin: coinResponse?.interviewCoin,
-            }))
-            } catch (error) {
-                setStarting(false)
-                alert("Failed to use coins.")
-                return;
-            }
-
-
-        }
-
-        setStarting(false)
-        navigate(`/interview/${response.interviewId}`)
-
+    const start = () => {
+        showDemoBlocked()
     }
 
     return (

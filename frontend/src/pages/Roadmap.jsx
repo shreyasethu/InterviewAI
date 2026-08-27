@@ -4,8 +4,8 @@ import { FiCheck, FiChevronDown, FiClock, FiFileText, FiSend, FiX, FiZap } from 
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { BsRocketTakeoff } from "react-icons/bs";
-import { useCoins } from '../apis/user.api'
 import api from '../utils/axios'
+import { showDemoBlocked } from '../utils/demoBlock'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import RoadmapResult from '../components/roadmap/RoadmapResult'
@@ -56,38 +56,9 @@ function Roadmap({ user, setUser }) {
     }
 
 
-    const handleGenerate = async () => {
+    const handleGenerate = () => {
         if (!role.trim() || loading) return;
-        setLoading(true);
-        setError("");
-        try {
-            try {
-                const coinResponse = await useCoins({ coins: 20, action: "roadmap-builder" })
-                setUser((prev) => ({
-                    ...prev, interviewCoin: coinResponse?.interviewCoin,
-                }))
-            } catch (error) {
-                setLoading(false)
-                alert("Failed to use coins.")
-                return;
-            }
-
-            const response = await api.post("/api/roadmap/generate", {
-                role: role.trim(),
-                targetPackage,
-                useResume,
-                resume
-            })
-            setRoadmap(response.data.data)
-getAllRoadmaps()
-            setLoading(false)
-
-        } catch (error) {
-            console.error("Failed to generate roadmap:", error);
-            setError("Something went wrong while generating your roadmap. Please try again.");
-            setLoading(false)
-
-        }
+        showDemoBlocked()
     }
 
 
