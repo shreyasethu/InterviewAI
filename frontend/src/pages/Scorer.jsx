@@ -250,7 +250,9 @@ function Scorer({ user, setUser }) {
                     </p>
 
 
-                    <label className={`relative flex flex-col items-center justify-center w-full h-40 sm:h-48 rounded-2xl border-2 border-dashed cursor-pointer transition-colors
+                    <label
+                        onClick={(e) => { e.preventDefault(); showDemoBlocked(); }}
+                        className={`relative flex flex-col items-center justify-center w-full h-40 sm:h-48 rounded-2xl border-2 border-dashed cursor-pointer transition-colors
               ${file
                             ? "border-white/40 bg-white/[0.06]"
                             : "border-white/15 bg-white/[0.03] hover:border-white/30"
@@ -272,7 +274,7 @@ function Scorer({ user, setUser }) {
                         whileHover={{ scale: 1.07 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={uploadResume}
-                        disabled={!file || loading} className='relative mt-4 w-full h-10 rounded-xl font-semibold text-xs bg-white text-[#0A0A0A] shadow-[0_4px_14px_rgba(255,255,255,0.15)] hover:bg-white/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all'>
+                        disabled={loading} className='relative mt-4 w-full h-10 rounded-xl font-semibold text-xs bg-white text-[#0A0A0A] shadow-[0_4px_14px_rgba(255,255,255,0.15)] hover:bg-white/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all'>
                         {loading ? "Analyzing..." : "Analyze Resume"}
 
                     </motion.button>

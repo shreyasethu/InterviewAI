@@ -166,7 +166,9 @@ function Step1setup({ user, setUser }) {
                                     animate={{ opacity: 1 }}
                                     className='rounded-xl border-2 border-dashed border-white/10 bg-[#17181E] p-4'>
 
-                                    <label className='cursor-pointer flex flex-col items-center'>
+                                    <label
+                                        onClick={(e) => { e.preventDefault(); showDemoBlocked(); }}
+                                        className='cursor-pointer flex flex-col items-center'>
                                         <div className='w-11 h-11 rounded-xl bg-white flex items-center justify-center'><FiUploadCloud size={20} className='text-black' /></div>
                                         <h3 className='mt-3 text-sm font-semibold text-white'>Upload Resume</h3>
                                         <p className='mt-1 text-xs text-zinc-500 text-center'>

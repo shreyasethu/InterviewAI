@@ -13,7 +13,12 @@ function CustomTooltip({ active, payload }) {
         )
     }
 }
+const PLACEHOLDER_SKILLS = ["Technical", "Communication", "Problem Solving", "Clarity", "Confidence"]
+
 function RadarCard({ title, data, color, index }) {
+    const hasData = data && data.length > 0
+    const chartData = hasData ? data : PLACEHOLDER_SKILLS.map((skill) => ({ skill, score: 0 }))
+
     return (
 
         <motion.div
@@ -27,7 +32,7 @@ function RadarCard({ title, data, color, index }) {
 
             <div className='relative'>
                 <ResponsiveContainer width="100%" height={180}>
-                    <RadarChart data={data} cx="50%" cy="50%" outerRadius="68%">
+                    <RadarChart data={chartData} cx="50%" cy="50%" outerRadius="68%">
                         <PolarGrid stroke="rgba(255,255,255,0.08)" gridType="circle" />
                         <PolarAngleAxis dataKey="skill"
                             tick={{ fill: "rgba(255,255,255,0.35)", fontSize: 9, fontWeight: 500 }} />
@@ -39,12 +44,17 @@ function RadarCard({ title, data, color, index }) {
                             fillOpacity={0.15}
                             strokeWidth={2}
                             dot={{ r: 2.5, fill: color, strokeWidth: 0 }} />
-                        <Tooltip content={<CustomTooltip/>}/>
+                        {hasData && <Tooltip content={<CustomTooltip/>}/>}
                     </RadarChart>
                 </ResponsiveContainer>
                 <p className='text-white font-semibold text-xs text-center mt-2'>
                     {title}
                 </p>
+                {!hasData && (
+                    <p className='text-white/25 text-[10px] text-center mt-0.5'>
+                        No interviews yet
+                    </p>
+                )}
             </div>
 
         </motion.div>

@@ -37,6 +37,7 @@ function Dashboard({ user, setUser }) {
 
     const fetchInterviews = async () => {
       const response = await getAllInterviews()
+      if (!response) return
       setStats(response.stats)
       setTechnicalData(response.technicalData)
       setHrData(response.hrData)
