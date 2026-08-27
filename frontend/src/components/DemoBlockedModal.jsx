@@ -31,7 +31,15 @@ function DemoBlockedModal() {
                         </button>
 
                         <p className='text-[#0A0A0A] text-sm font-medium leading-relaxed mt-2'>
-                            Sorry backend not deployed currently, you can find the source code on github, ciao :3
+                            Sorry backend not deployed currently, you can find the source code on{" "}
+                            <a
+                                href="https://github.com/shreyasethu/InterviewAI"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className='underline underline-offset-2 hover:text-black/60 transition-colors'>
+                                github
+                            </a>
+                            , ciao :3
                         </p>
 
                     </motion.div>

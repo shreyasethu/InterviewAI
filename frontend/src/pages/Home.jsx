@@ -52,7 +52,7 @@ function Home({ setUser }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.05 }}
                         className='inline-flex items-center px-3 py-1.5 rounded-full border border-black/15 bg-black/5 text-black/70 text-xs font-medium mb-4'>
-                        AI Interview Helper Demo Site
+                        cutest demo site ever or what?
 
                     </motion.div>
 
